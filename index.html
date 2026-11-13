@@ -491,7 +491,7 @@ function changeStorage(id){
   if(!newDate){alert("There is no estimate available for this storage choice in the guide.");return;}
   const duration=GUIDE[f.category][storage];
   const warning=duration.unit==="hours"
-    ? "Your notes give a room-temperature limit in hours. The app can only mark the date as today; it cannot calculate an exact safe time."
+    ? "Your notes give a room-temperature limit in hours. The app can only mark the date as today; unfortunately it cannot calculate an exact safe time."
     : `Your notes list: ${duration.label}.\nThe new estimated date will be ${formatDate(newDate)}.`;
   if(confirm(`Only continue if you really moved the food to this storage method.\n\n${warning}\n\nRecalculate from today?`)){
     f.storage=storage;f.startDate=changedAt;f.storageChangedAt=changedAt;f.expiry=newDate;
