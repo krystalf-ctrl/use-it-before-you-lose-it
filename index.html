@@ -1,0 +1,515 @@
+!<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Use It Before You Lose It</title>
+<style>
+:root {
+  --green:#285b3c; --dark-green:#1e462e; --light-green:#eaf3e5;
+  --cream:#faf9f2; --yellow:#fff0cb; --red:#fbe5e2;
+  --text:#26372b; --muted:#718071; --white:#fff;
+  --border:#dfe7dc; --shadow:0 8px 24px rgba(35,65,43,.08);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.5}
+header{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:5}
+.nav{max-width:1100px;margin:auto;padding:15px 22px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.logo{font-weight:800;color:var(--green);font-size:1.12rem;text-decoration:none}
+.nav a:last-child{color:var(--green);font-weight:700;text-decoration:none}
+main{max-width:1100px;margin:auto;padding:30px 22px 60px}
+.hero{background:var(--light-green);border-radius:22px;padding:34px;margin-bottom:24px;display:flex;justify-content:space-between;gap:20px;align-items:center}
+.eyebrow{color:var(--green);font-weight:800;font-size:.75rem;letter-spacing:.12em}
+h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.05;margin:10px 0;color:var(--dark-green)}
+.hero p{max-width:560px;color:#4d6552;margin-bottom:0}
+.hero-art{font-size:3rem;white-space:nowrap}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px}
+.stat,.panel{background:var(--white);border:1px solid var(--border);border-radius:17px;padding:20px;box-shadow:var(--shadow)}
+.stat strong{display:block;font-size:1.8rem;color:var(--green)}
+.stat span{color:var(--muted);font-size:.9rem}
+.layout{display:grid;grid-template-columns: minmax(280px,.85fr) minmax(0,1.5fr);gap:20px;align-items:start}
+.panel{margin-bottom:20px}
+h2{font-size:1.25rem;margin:0 0 15px;color:var(--dark-green)}
+h3{font-size:1rem;margin:0 0 10px}
+label{display:block;font-weight:700;font-size:.9rem;margin:13px 0 6px}
+input,select,button{font:inherit}
+input,select{width:100%;padding:11px 12px;border:1px solid #cbd8ca;border-radius:10px;background:#fff;color:var(--text)}
+input:focus,select:focus{outline:3px solid #d6e9d2;border-color:var(--green)}
+button{border:0;border-radius:10px;padding:11px 15px;font-weight:700;cursor:pointer}
+.primary{background:var(--green);color:#fff;width:100%;margin-top:16px}
+.primary:hover{background:var(--dark-green)}
+.secondary{background:var(--light-green);color:var(--dark-green)}
+.danger{background:var(--red);color:#8b3027}
+.small{padding:7px 10px;font-size:.82rem}
+.choice-row{display:flex;gap:10px}
+.choice-row label{flex:1;border:1px solid var(--border);padding:11px;border-radius:10px;cursor:pointer;margin:4px 0;font-weight:600}
+.choice-row input{width:auto;margin-right:6px}
+.hidden{display:none!important}
+.hint{font-size:.82rem;color:var(--muted);margin:6px 0}
+.notice{background:#fff8e7;border:1px solid #f0dfb7;border-radius:12px;padding:12px;font-size:.84rem;color:#69572e;margin-top:14px}
+.list{display:grid;gap:11px}
+.food-card{border:1px solid var(--border);border-radius:13px;padding:14px;display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.food-card h3{margin:0 0 4px}
+.food-meta{font-size:.84rem;color:var(--muted)}
+.status{display:inline-block;border-radius:20px;padding:4px 9px;font-size:.75rem;font-weight:800;margin:5px 0}
+.status.safe{background:var(--light-green);color:var(--green)}
+.status.soon{background:var(--yellow);color:#765000}
+.status.past{background:var(--red);color:#8b3027}
+.actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.empty{color:var(--muted);text-align:center;padding:20px}
+.section-head{display:flex;justify-content:space-between;gap:12px;align-items:center}
+.filters{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0}
+.filters button{background:#f0f3ed;color:var(--text)}
+.filters button.active{background:var(--green);color:white}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.shopping-row{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid var(--border)}
+.shopping-row span{flex:1}
+.shopping-row input{width:auto}
+.tip{padding:10px 0;border-bottom:1px solid var(--border);font-size:.9rem}
+footer{text-align:center;color:var(--muted);font-size:.82rem;padding:22px}
+@media(max-width:780px){.layout{grid-template-columns:1fr}.hero{align-items:flex-start}.hero-art{font-size:2.3rem}.stats{gap:8px}.stat{padding:13px}.stat strong{font-size:1.4rem}}
+@media(max-width:480px){main{padding:18px 13px 40px}.hero{padding:23px 18px}.hero-art{display:none}.stats{grid-template-columns:1fr}.food-card{display:block}.two-col{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <a class="logo" href="#">🥬 Use It Before You Lose It</a>
+    <a href="#inventory">My food →</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div>
+      <div class="eyebrow">YOUR SMART FOOD COMPANION</div>
+      <h1>Use your food<br>before you lose it.</h1>
+      <p>Keep track of what you have, see what to use first, and get storage estimates to help reduce food waste.</p>
+    </div>
+    <div class="hero-art" aria-hidden="true">🥑 🍓 🥕</div>
+  </section>
+
+  <section class="stats">
+    <div class="stat"><strong id="totalCount">0</strong><span>🥗 Total food items</span></div>
+    <div class="stat"><strong id="soonCount">0</strong><span>⏰ Dates coming up (3 days)</span></div>
+    <div class="stat"><strong id="pastCount">0</strong><span>⚠️ Past listed/estimated date</span></div>
+  </section>
+
+  <div class="layout">
+    <div>
+      <section class="panel">
+        <h2 id="formHeading">＋ Add food</h2>
+        <form id="foodForm">
+          <label for="foodName">Food name *</label>
+          <input id="foodName" maxlength="100" placeholder="e.g. Strawberries" required>
+
+          <div class="two-col">
+            <div>
+              <label for="category">Food category *</label>
+              <select id="category" required>
+                <option value="produce">Fruits & vegetables</option>
+                <option value="meat">Meat & poultry</option>
+                <option value="fish">Fish & seafood</option>
+                <option value="dairy">Milk & dairy</option>
+                <option value="deli">Deli meats & sausages</option>
+                <option value="prepared">Prepared foods / leftovers</option>
+                <option value="grains">Grains & cereals</option>
+                <option value="bakery">Bread & bakery</option>
+                <option value="shelf">Canned / shelf-stable groceries</option>
+                <option value="drinks">Juices & soft drinks</option>
+                <option value="fats">Butter, fats & oils</option>
+                <option value="cheese">Cheese</option>
+              </select>
+            </div>
+            <div>
+              <label for="quantity">Quantity</label>
+              <input id="quantity" maxlength="80" placeholder="e.g. 1 container">
+            </div>
+          </div>
+
+          <label>Does it have an expiry / best-before date on the package?</label>
+          <div class="choice-row">
+            <label><input type="radio" name="hasDate" value="yes" checked> Yes</label>
+            <label><input type="radio" name="hasDate" value="no"> No</label>
+          </div>
+
+          <div id="printedDateArea">
+            <label for="expiryDate">Date printed on package *</label>
+            <input id="expiryDate" type="date">
+            <p class="hint">Enter the date shown on the package. The app will keep this as the package date.</p>
+          </div>
+
+          <div id="estimateArea" class="hidden">
+            <label for="storedDate">When did you buy or store this food? *</label>
+            <input id="storedDate" type="date">
+            <label for="storage">Where is it being stored? *</label>
+            <select id="storage">
+              <option value="fridge">Refrigerator</option>
+              <option value="freezer">Freezer</option>
+              <option value="room">Room temperature / pantry</option>
+            </select>
+            <p class="hint"></p>
+          </div>
+
+          <div class="two-col">
+            <div>
+              <label for="condition">Food condition</label>
+              <select id="condition">
+                <option value="unopened">Unopened</option>
+                <option value="opened">Opened</option>
+                <option value="cooked">Cooked / leftovers</option>
+              </select>
+            </div>
+            <div id="storageForPrintedArea">
+              <label for="storagePrinted">Storage location</label>
+              <select id="storagePrinted">
+                <option value="fridge">Refrigerator</option>
+                <option value="freezer">Freezer</option>
+                <option value="room">Room temperature / pantry</option>
+              </select>
+            </div>
+          </div>
+          <button class="primary" type="submit" id="submitButton">＋ Add to my food list</button>
+          <button class="secondary small hidden" type="button" id="cancelEdit">Cancel edit</button>
+        </form>
+        <div class="notice"><strong>Food safety reminder:</strong> These are general storage estimates, not guarantees that food is safe. Follow package instructions and trusted food-safety advice. Never rely on smell or appearance alone.</div>
+      </section>
+
+      <section class="panel">
+        <h2>🛒 Shopping list</h2>
+        <form id="shoppingForm">
+          <label for="shoppingInput">Add something to buy</label>
+          <div class="row" style="display:flex;gap:8px">
+            <input id="shoppingInput" placeholder="e.g. Milk" maxlength="100" required>
+            <button class="secondary" type="submit">Add</button>
+          </div>
+        </form>
+        <div id="shoppingList" style="margin-top:10px"></div>
+      </section>
+    </div>
+
+    <div>
+      <section class="panel">
+        <h2>⭐ Eat Me First!</h2>
+        <p class="hint">Food with the closest listed or estimated dates appears first.</p>
+        <div id="eatFirst" class="list"><p class="empty">Add food to build your Eat Me First list!</p></div>
+      </section>
+
+      <section class="panel" id="inventory">
+        <div class="section-head">
+          <h2>My food list</h2>
+        </div>
+        <label for="search">Search your food</label>
+        <input id="search" placeholder="🔍 Search your food...">
+        <div class="filters">
+          <button type="button" class="active" data-filter="all">All food</button>
+          <button type="button" data-filter="soon">Expiring soon</button>
+          <button type="button" data-filter="past">Past date</button>
+        </div>
+        <div id="foodList" class="list"><p class="empty">No food added yet.</p></div>
+      </section>
+
+      <section class="panel">
+        <h2>💡 Storage tips</h2>
+        <div id="storageTips">
+          <div class="tip">🥶 Keep refrigerated foods cold and return them to the fridge promptly.</div>
+          <div class="tip">❄️ Freezing can extend storage time when food is frozen while still suitable for freezing.</div>
+          <div class="tip">📦 Keep food in suitable sealed packaging and follow the package's storage instructions.</div>
+          <div class="tip">⚠️ Your notes say harmful bacteria may not change food's smell or colour.</div>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer>
+  Love your food. Waste less. This website tracks package dates and general storage estimates; it cannot determine whether food is safe to eat.
+</footer>
+
+<script>
+const STORAGE_KEY = "use-it-before-you-lose-it-v2";
+const SHOP_KEY = "use-it-before-you-lose-it-shopping-v1";
+
+/*
+  Durations below are transcribed from the user's Science Fair Notes.pdf.
+  A midpoint is used only to display an approximate calendar estimate.
+  "range" values are in days; month/year values use calendar-month approximations.
+  The notes do not provide a separate duration for every individual food.
+*/
+const GUIDE = {
+  produce: {
+    room:{min:1,max:7,unit:"days",label:"1–7 days"},
+    fridge:{min:1,max:2,unit:"months",label:"up to 2 months (depends on type/condition)"},
+    freezer:{min:12,max:12,unit:"months",label:"1 year"}
+  },
+  meat: {
+    room:{min:1,max:2,unit:"hours",label:"1–2 hours"},
+    fridge:{min:1,max:4,unit:"days",label:"whole cuts: 3–4 days; ground meat: 1–2 days"},
+    freezer:{min:2,max:12,unit:"months",label:"ground meat: 2–3 months; whole cuts: up to 12 months"}
+  },
+  fish: {
+    room:{min:1,max:2,unit:"hours",label:"1–2 hours"},
+    fridge:{min:1,max:2,unit:"days",label:"1–2 days"},
+    freezer:{min:2,max:6,unit:"months",label:"fish: 2–6 months; shellfish: 2–4 months"}
+  },
+  dairy: {
+    room:{min:1,max:2,unit:"hours",label:"less than 2 hours"},
+    fridge:{min:5,max:10,unit:"days",label:"pasteurized milk: 5–7 days opened, 7–10 days unopened; cultured dairy: 1–2 weeks"},
+    freezer:{min:6,max:6,unit:"months",label:"most dairy: 6 months"}
+  },
+  deli: {
+    room:{min:1,max:2,unit:"hours",label:"less than 2 hours"},
+    fridge:{min:3,max:7,unit:"days",label:"deli counter: 3–5 days; commercially packaged: 7 days"},
+    freezer:{min:2,max:3,unit:"months",label:"2–3 months"}
+  },
+  prepared: {
+    room:{min:1,max:2,unit:"hours",label:"less than 2 hours"},
+    fridge:{min:2,max:4,unit:"days",label:"meal items: 2–3 days; cut fruit/vegetables: 3–4 days"},
+    freezer:{min:4,max:4,unit:"months",label:"4 months"}
+  },
+  grains: {
+    room:{min:6,max:12,unit:"months",label:"bagged/boxed: 6–12 months"},
+    fridge:{min:6,max:12,unit:"months",label:"notes do not give a separate refrigerator estimate"},
+    freezer:{min:6,max:12,unit:"months",label:"notes do not give a separate freezer estimate"}
+  },
+  bakery: {
+    room:{min:7,max:7,unit:"days",label:"1 week"},
+    fridge:{min:14,max:14,unit:"days",label:"2 weeks"},
+    freezer:{min:3,max:3,unit:"months",label:"3 months"}
+  },
+  shelf: {
+    room:{min:6,max:12,unit:"months",label:"boxed/bagged: 6–12 months"},
+    fridge:{min:6,max:12,unit:"months",label:"notes do not give a separate refrigerator estimate"},
+    freezer:{min:12,max:24,unit:"months",label:"canned pasta/meats/fish/sauces/condiments: notes say 1–2 years"}
+  },
+  drinks: {
+    room:{min:1,max:2,unit:"hours",label:"less than 2 hours"},
+    fridge:{min:7,max:10,unit:"days",label:"7–10 days"},
+    freezer:{min:12,max:12,unit:"months",label:"1 year"}
+  },
+  fats: {
+    room:{min:1,max:2,unit:"hours",label:"less than 2 hours"},
+    fridge:{min:1,max:5,unit:"months",label:"1–5 months"},
+    freezer:{min:6,max:12,unit:"months",label:"6–12 months"}
+  },
+  cheese: {
+    room:{min:1,max:2,unit:"hours",label:"less than 2 hours"},
+    fridge:{min:1,max:6,unit:"months",label:"cottage: 1–2 weeks; hard blocks: 3–6 months; soft blocks: 1–2 months"},
+    freezer:{min:3,max:12,unit:"months",label:"hard blocks: 6–12 months; soft blocks: 3–6 months"}
+  }
+};
+const CATEGORY_NAMES = {
+  produce:"Fruits & vegetables",meat:"Meat & poultry",fish:"Fish & seafood",
+  dairy:"Milk & dairy",deli:"Deli meats & sausages",prepared:"Prepared foods / leftovers",
+  grains:"Grains & cereals",bakery:"Bread & bakery",shelf:"Canned / shelf-stable groceries",
+  drinks:"Juices & soft drinks",fats:"Butter, fats & oils",cheese:"Cheese"
+};
+const STORAGE_NAMES = {fridge:"Refrigerator",freezer:"Freezer",room:"Room temperature / pantry"};
+let foods = loadArray(STORAGE_KEY);
+let shopping = loadArray(SHOP_KEY);
+let activeFilter = "all";
+let editingId = null;
+
+function loadArray(key){
+  try { const value = JSON.parse(localStorage.getItem(key) || "[]"); return Array.isArray(value) ? value : []; }
+  catch { return []; }
+}
+function saveFoods(){
+  try { localStorage.setItem(STORAGE_KEY,JSON.stringify(foods)); render(); }
+  catch { alert("Your browser could not save this list. Try freeing some browser storage."); }
+}
+function saveShopping(){
+  try { localStorage.setItem(SHOP_KEY,JSON.stringify(shopping)); renderShopping(); }
+  catch { alert("Your browser could not save the shopping list."); }
+}
+function localDateString(date){
+  const y=date.getFullYear(),m=String(date.getMonth()+1).padStart(2,"0"),d=String(date.getDate()).padStart(2,"0");
+  return `${y}-${m}-${d}`;
+}
+function parseDate(s){ if(!s) return null; const [y,m,d]=s.split("-").map(Number); return new Date(y,m-1,d,12); }
+function addDuration(date,duration){
+  const result = new Date(date);
+  const amount = Math.round((duration.min + duration.max)/2);
+  if(duration.unit==="hours"){
+    // The notes describe room-temperature limits in hours. For a date-only tracker,
+    // show the same day as a caution date rather than suggesting an extra safe day.
+    return new Date(result.getFullYear(),result.getMonth(),result.getDate(),12);
+  }
+  if(duration.unit==="days") result.setDate(result.getDate()+amount);
+  if(duration.unit==="months") result.setMonth(result.getMonth()+amount);
+  return result;
+}
+function estimateDate(category,storage,start){
+  const duration = GUIDE[category]?.[storage];
+  if(!duration) return null;
+  return localDateString(addDuration(parseDate(start),duration));
+}
+function daysUntil(dateString){
+  const target=parseDate(dateString), today=parseDate(localDateString(new Date()));
+  return Math.round((target-today)/86400000);
+}
+function statusFor(food){
+  const days=daysUntil(food.expiry);
+  if(days<0) return {className:"past",label:"Past date",detail:`${Math.abs(days)} day(s) past the listed/estimated date`};
+  if(days===0) return {className:"soon",label:"Date is today",detail:"Check the package and food-safety guidance"};
+  if(days<=3) return {className:"soon",label:"Expiring soon",detail:`${days} day(s) left`};
+  return {className:"safe",label:"On your list",detail:`${days} days left`};
+}
+function formatDate(s){ return parseDate(s)?.toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"}) || "No date"; }
+function getFoodDateInfo(food){
+  return food.dateType==="printed" ? "Package date" : `Estimated · ${STORAGE_NAMES[food.storage] || "Storage not set"}`;
+}
+function foodCard(food,compact=false){
+  const status=statusFor(food);
+  const div=document.createElement("article");
+  div.className="food-card";
+  const info=document.createElement("div");
+  const title=document.createElement("h3"); title.textContent=food.name; info.appendChild(title);
+  const meta=document.createElement("div"); meta.className="food-meta";
+  meta.textContent=`${CATEGORY_NAMES[food.category] || "Food"}${food.quantity ? " · "+food.quantity : ""}`;
+  info.appendChild(meta);
+  const badge=document.createElement("span"); badge.className=`status ${status.className}`; badge.textContent=status.label; info.appendChild(badge);
+  const date=document.createElement("div"); date.className="food-meta";
+  date.textContent=`${getFoodDateInfo(food)}: ${formatDate(food.expiry)}`;
+  info.appendChild(date);
+  const detail=document.createElement("div"); detail.className="food-meta"; detail.textContent=status.detail; info.appendChild(detail);
+  if(food.dateType==="estimated" && food.storageChangedAt){
+    const changed=document.createElement("div"); changed.className="food-meta"; changed.textContent=`Storage changed: ${formatDate(food.storageChangedAt)}`; info.appendChild(changed);
+  }
+  const actions=document.createElement("div"); actions.className="actions";
+  const edit=document.createElement("button"); edit.className="secondary small"; edit.textContent="Edit"; edit.onclick=()=>editFood(food.id); actions.appendChild(edit);
+  if(food.dateType==="estimated"){
+    const extend=document.createElement("button"); extend.className="secondary small"; extend.textContent="Change storage / recalculate"; extend.onclick=()=>changeStorage(food.id); actions.appendChild(extend);
+  }
+  const remove=document.createElement("button"); remove.className="danger small"; remove.textContent="Remove"; remove.onclick=()=>removeFood(food.id); actions.appendChild(remove);
+  div.append(info,actions);
+  return div;
+}
+function render(){
+  document.getElementById("totalCount").textContent=foods.length;
+  document.getElementById("soonCount").textContent=foods.filter(f=>{const d=daysUntil(f.expiry);return d>=0&&d<=3;}).length;
+  document.getElementById("pastCount").textContent=foods.filter(f=>daysUntil(f.expiry)<0).length;
+  const sorted=[...foods].sort((a,b)=>a.expiry.localeCompare(b.expiry));
+  const eat=document.getElementById("eatFirst"); eat.replaceChildren();
+  const upcoming=sorted.filter(f=>daysUntil(f.expiry)>=0).slice(0,3);
+  if(!upcoming.length) eat.innerHTML='<p class="empty">No upcoming dates to show yet. Add food to build your Eat Me First list!</p>';
+  else upcoming.forEach(f=>eat.appendChild(foodCard(f,true)));
+  const list=document.getElementById("foodList"); list.replaceChildren();
+  const q=document.getElementById("search").value.trim().toLowerCase();
+  const filtered=sorted.filter(f=>{
+    const d=daysUntil(f.expiry);
+    const matches= f.name.toLowerCase().includes(q) || (CATEGORY_NAMES[f.category]||"").toLowerCase().includes(q);
+    const filterMatch=activeFilter==="all" || (activeFilter==="soon"&&d>=0&&d<=3) || (activeFilter==="past"&&d<0);
+    return matches&&filterMatch;
+  });
+  if(!filtered.length) list.innerHTML='<p class="empty">No matching food items. Add food to get started!</p>';
+  else filtered.forEach(f=>list.appendChild(foodCard(f)));
+  renderShopping();
+}
+function renderShopping(){
+  const list=document.getElementById("shoppingList"); list.replaceChildren();
+  if(!shopping.length){list.innerHTML='<p class="hint">Your shopping list is empty.</p>';return;}
+  shopping.forEach(item=>{
+    const row=document.createElement("div");row.className="shopping-row";
+    const check=document.createElement("input");check.type="checkbox";check.checked=!!item.done;check.setAttribute("aria-label","Mark item complete");
+    check.onchange=()=>{item.done=check.checked;saveShopping();};
+    const name=document.createElement("span");name.textContent=item.name;if(item.done)name.style.textDecoration="line-through";
+    const del=document.createElement("button");del.className="danger small";del.textContent="×";del.setAttribute("aria-label","Remove "+item.name);
+    del.onclick=()=>{shopping=shopping.filter(x=>x.id!==item.id);saveShopping();};
+    row.append(check,name,del);list.appendChild(row);
+  });
+}
+function updateDateChoice(){
+  const has=document.querySelector('input[name="hasDate"]:checked').value==="yes";
+  document.getElementById("printedDateArea").classList.toggle("hidden",!has);
+  document.getElementById("estimateArea").classList.toggle("hidden",has);
+  document.getElementById("storageForPrintedArea").classList.toggle("hidden",!has);
+  document.getElementById("expiryDate").required=has;
+  document.getElementById("storedDate").required=!has;
+}
+document.querySelectorAll('input[name="hasDate"]').forEach(r=>r.addEventListener("change",updateDateChoice));
+document.getElementById("foodForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const name=document.getElementById("foodName").value.trim();
+  const category=document.getElementById("category").value;
+  const dateType=document.querySelector('input[name="hasDate"]:checked').value==="yes"?"printed":"estimated";
+  const storage=dateType==="estimated"?document.getElementById("storage").value:document.getElementById("storagePrinted").value;
+  const start=dateType==="estimated"?document.getElementById("storedDate").value:null;
+  const expiry=dateType==="printed"?document.getElementById("expiryDate").value:estimateDate(category,storage,start);
+  if(!name||!expiry){alert("Please complete the required fields.");return;}
+  const item={
+    id:editingId||((crypto.randomUUID&&crypto.randomUUID())||String(Date.now()+Math.random())),
+    name,category,quantity:document.getElementById("quantity").value.trim(),
+    dateType,expiry,storage,startDate:start,
+    condition:document.getElementById("condition").value
+  };
+  if(editingId){foods=foods.map(f=>f.id===editingId?{...f,...item}:f);}
+  else foods.push(item);
+  resetForm();saveFoods();
+});
+function resetForm(){
+  editingId=null;document.getElementById("foodForm").reset();
+  document.getElementById("formHeading").textContent="＋ Add food";
+  document.getElementById("submitButton").textContent="＋ Add to my food list";
+  document.getElementById("cancelEdit").classList.add("hidden");
+  updateDateChoice();
+}
+function editFood(id){
+  const f=foods.find(x=>x.id===id);if(!f)return;
+  editingId=id;document.getElementById("foodName").value=f.name;
+  document.getElementById("category").value=f.category;
+  document.getElementById("quantity").value=f.quantity||"";
+  document.getElementById("condition").value=f.condition||"unopened";
+  document.querySelector(`input[name="hasDate"][value="${f.dateType==="printed"?"yes":"no"}"]`).checked=true;
+  if(f.dateType==="printed"){
+    document.getElementById("expiryDate").value=f.expiry;
+    document.getElementById("storagePrinted").value=f.storage||"fridge";
+  }else{
+    document.getElementById("storedDate").value=f.startDate||"";
+    document.getElementById("storage").value=f.storage||"fridge";
+  }
+  updateDateChoice();
+  document.getElementById("formHeading").textContent="Edit food";
+  document.getElementById("submitButton").textContent="Save changes";
+  document.getElementById("cancelEdit").classList.remove("hidden");
+  document.getElementById("foodName").focus();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function removeFood(id){
+  if(confirm("Remove this food item from your list?")){foods=foods.filter(f=>f.id!==id);saveFoods();}
+}
+function changeStorage(id){
+  const f=foods.find(x=>x.id===id);if(!f)return;
+  const newStorage=prompt("Where has this food actually been moved to?\nType: fridge, freezer, or room",f.storage||"fridge");
+  if(newStorage===null)return;
+  const normalized=newStorage.trim().toLowerCase();
+  const map={fridge:"fridge",refrigerator:"fridge",freezer:"freezer",room:"room","room temperature":"room",pantry:"room"};
+  const storage=map[normalized];
+  if(!storage){alert("Please type fridge, freezer, or room.");return;}
+  const changedAt=localDateString(new Date());
+  const newDate=estimateDate(f.category,storage,changedAt);
+  if(!newDate){alert("There is no estimate available for this storage choice in the guide.");return;}
+  const duration=GUIDE[f.category][storage];
+  const warning=duration.unit==="hours"
+    ? "Your notes give a room-temperature limit in hours. The app can only mark the date as today; it cannot calculate an exact safe time."
+    : `Your notes list: ${duration.label}.\nThe new estimated date will be ${formatDate(newDate)}.`;
+  if(confirm(`Only continue if you really moved the food to this storage method.\n\n${warning}\n\nRecalculate from today?`)){
+    f.storage=storage;f.startDate=changedAt;f.storageChangedAt=changedAt;f.expiry=newDate;
+    saveFoods();
+  }
+}
+document.getElementById("cancelEdit").addEventListener("click",resetForm);
+document.getElementById("search").addEventListener("input",render);
+document.querySelectorAll(".filters button").forEach(btn=>btn.addEventListener("click",()=>{
+  activeFilter=btn.dataset.filter;
+  document.querySelectorAll(".filters button").forEach(b=>b.classList.toggle("active",b===btn));
+  render();
+}));
+document.getElementById("shoppingForm").addEventListener("submit",e=>{
+  e.preventDefault();const input=document.getElementById("shoppingInput");const name=input.value.trim();
+  if(name){shopping.push({id:(crypto.randomUUID&&crypto.randomUUID())||String(Date.now()+Math.random()),name,done:false});input.value="";saveShopping();}
+});
+updateDateChoice();render();
+</script>
+</body>
+</html>
